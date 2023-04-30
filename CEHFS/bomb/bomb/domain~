@@ -1,0 +1,20 @@
+(define (domain bomb)
+(:requirements :strips :equality :typing :conditional-effects :disjunctive-preconditions)
+   (:predicates (bomb ?x)
+                (toilet ?x)
+                (armed ?x)
+		(clogged ?x))
+
+   (:action dunk
+       :parameters  (?x ?t)
+       :precondition (and (bomb ?x) (toilet ?t) 
+                          (not (clogged ?t)))
+       :effect (and (when (armed ?x) (not (armed ?x)))
+                    (clogged ?t)))
+
+   (:action flush
+       :parameters  (?toilet)
+       :precondition (toilet ?toilet) 
+       :effect (when (clogged ?toilet) (not (clogged ?toilet))))
+
+)
